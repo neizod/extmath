@@ -1,11 +1,17 @@
-Digging into <http://projecteuler.com>, I discover many interesting
-mathematical technique, which is not yet
+Math API
+========
 
-    sigma(n, pow=1) -> value
-    - work pretty much like sum(i for i in range(n+1)).
-    - but done in O(1) time.
-    - always start from 0. so if you need something like:
-        sigma(... i=5 to 10) you need to write sigma(10) - sigma(5).
-    - (now) support only step=1 and pow=0..3.
-    - see more: <http://en.wikipedia.org/wiki/Bernoulli_number>
+Digging into <http://projecteuler.com>, I discover many interesting
+mathematical technique, which not yet include in main. So I write it out.
+
+Avalable Functions
+------------------
+
+- `factorized`: Prime factorization of a number.
+- `sigma`: Summation of numbers from `[1..n]`, or `[1**p..n**p]`.
+
+Installation
+------------
+
+    $ sudo python setup.py install
 
