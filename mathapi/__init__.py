@@ -1,6 +1,51 @@
 from functools import reduce
 from itertools import product as cartesian_product
 
+class InfinityList(list):
+    def __iter__(self):
+        n = 0
+        while True:
+            yield self[n]
+            n += 1
+
+    def __getitem__(self, n):
+        while True:
+            try:
+                return super(InfinityList, self).__getitem__(n)
+            except IndexError:
+                self.append(len(self))
+
+
+class Fibonacci(InfinityList):
+    def __getitem__(self, n):
+        while True:
+            try:
+                return super(InfinityList, self).__getitem__(n)
+            except IndexError:
+                self.append( super(InfinityList, self).__getitem__(-1) +
+                             super(InfinityList, self).__getitem__(-2) )
+
+
+class Prime(InfinityList):
+    def __getitem__(self, n):
+        while True:
+            try:
+                return super(InfinityList, self).__getitem__(n)
+            except IndexError:
+                c = super(InfinityList, self).__getitem__(-1)
+                while True:
+                    c += 2
+                    for p in self[:]:
+                        if not c % p:
+                            break
+                    else:
+                        self.append(c)
+                        break
+
+
+fibonacci = Fibonacci([1, 1])
+prime = Prime([2, 3])
+
 def prod(l):
     '''prod(iterable) -> value'''
 
@@ -17,12 +62,12 @@ def factorized(n):
     if n == 1:
         return [1]
     factor = []
-    i = 2 # FIXME loop through prime numbers instead.
-    while n > 1:
+    for i in Prime.generator():
         while not n % i:
             factor.append(i)
             n /= i
-        i += 1
+        if n == 1:
+            break
     return factor
 
 def divisors(n):
