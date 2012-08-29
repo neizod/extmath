@@ -1,4 +1,3 @@
-from functools import reduce
 from itertools import product as cartesian_product
 
 class InfinityList(list):
@@ -8,31 +7,32 @@ class InfinityList(list):
             yield self[n]
             n += 1
 
+    def __str__(self):
+        return super().__str__()[:-1] + ', ...]'
+
+    def __repr__(self):
+        return super().__repr__()[:-1] + ', ...]'
+
+
+class fibonacci(InfinityList):
     def __getitem__(self, n):
         while True:
             try:
-                return super(InfinityList, self).__getitem__(n)
+                return super().__getitem__(n)
             except IndexError:
-                self.append(len(self))
+                self.append(super().__getitem__(-1) + super().__getitem__(-2))
+
+    def __init__(self):
+        super().__init__([1, 1])
 
 
-class Fibonacci(InfinityList):
+class prime(InfinityList):
     def __getitem__(self, n):
         while True:
             try:
-                return super(InfinityList, self).__getitem__(n)
+                return super().__getitem__(n)
             except IndexError:
-                self.append( super(InfinityList, self).__getitem__(-1) +
-                             super(InfinityList, self).__getitem__(-2) )
-
-
-class Prime(InfinityList):
-    def __getitem__(self, n):
-        while True:
-            try:
-                return super(InfinityList, self).__getitem__(n)
-            except IndexError:
-                c = super(InfinityList, self).__getitem__(-1)
+                c = super().__getitem__(-1)
                 while True:
                     c += 2
                     for p in self[:]:
@@ -42,14 +42,21 @@ class Prime(InfinityList):
                         self.append(c)
                         break
 
+    def __init__(self):
+        super().__init__([2, 3])
 
-fibonacci = Fibonacci([1, 1])
-prime = Prime([2, 3])
+
+fibonacci = fibonacci()
+prime = prime()
+
 
 def prod(l):
     '''prod(iterable) -> value'''
 
-    return reduce(lambda x, y: x*y, l)
+    s = 1
+    for n in l:
+        s *= n
+    return s
 
 def factorized(n):
     '''factorized(number) -> list
@@ -62,7 +69,7 @@ def factorized(n):
     if n == 1:
         return [1]
     factor = []
-    for i in Prime.generator():
+    for i in prime:
         while not n % i:
             factor.append(i)
             n /= i
