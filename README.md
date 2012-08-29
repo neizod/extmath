@@ -21,7 +21,7 @@ Avalable Feature
 Installation
 ------------
 
-Download source and
+Download source and, as root
 
-    $ sudo python setup.py install
+    # python3 setup.py install
 
