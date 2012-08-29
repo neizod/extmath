@@ -7,16 +7,21 @@ mathematical technique, which not yet include in main. So I write it out.
 Avalable Feature
 ----------------
 
+- Infinity Number Sets
+    - `prime`
+    - `fibonacci`
 - Number Theory
-    - `prime`: a data set containing prime numbers.
     - `factorized`: Prime factorization of a number.
-    - `divisors`: All positive divisable numbers of a number.
+    - `divisors`: Show all positive divisable numbers of a number.
+    - `Fraction.decimal`: Show repeating decimal of a fraction number.
 - Arithmetic Function
     - `prod`: Production of a list of numbers.
     - `summation`: Summation of numbers from `[1..n]`, or `[1**p..n**p]`.
 
 Installation
 ------------
+
+Download source and
 
     $ sudo python setup.py install
 

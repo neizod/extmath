@@ -1,4 +1,42 @@
+from fractions import Fraction
 from itertools import product as cartesian_product
+
+class Fraction(Fraction):
+    def decimal(self, sep='()'):
+        '''Show repeating decimal representation of the fraction.
+
+        >>> Fraction(1, 7).decimal()
+        '0.(142857)'
+
+        Warning! Since the repeating part can contain as much digits as
+        the size of the denominator (especially if its a prime number),
+        this computation might take very long time too.'''
+
+        n, d = self.numerator, self.denominator
+
+        t, s = '', []
+        while s.count(n) < 2:
+            t += str(n // d) + ('.' if not t else '')
+            n %= d
+            if not n:
+                break
+            n *= 10
+            s.append(n)
+        else:
+            r = s.index(s.pop()) - len(s)
+            ti, tr = t[:r], t[r:]
+            if not sep:
+                sep_l, sep_r = '', '...'
+                tr *= 2
+            elif len(sep) == 1:
+                sep_l = sep_r = sep * 3
+            else:
+                sep_l, sep_r = sep[0], sep[1]
+
+            return ti + sep_l + tr + sep_r
+
+        return t if t[-1] != '.' else t[:-1]
+
 
 class InfinityList(list):
     def __iter__(self):
