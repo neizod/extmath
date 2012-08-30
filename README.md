@@ -23,5 +23,5 @@ Installation
 
 Download source and, as root
 
-    # python3 setup.py install
+    # python setup.py install
 
