@@ -46,31 +46,32 @@ class InfinityList(list):
             n += 1
 
     def __str__(self):
-        return super().__str__()[:-1] + ', ...]'
+        return super(InfinityList, self).__str__()[:-1] + ', ...]'
 
     def __repr__(self):
-        return super().__repr__()[:-1] + ', ...]'
+        return super(InfinityList, self).__repr__()[:-1] + ', ...]'
 
 
 class fibonacci(InfinityList):
     def __getitem__(self, n):
         while True:
             try:
-                return super().__getitem__(n)
+                return super(InfinityList, self).__getitem__(n)
             except IndexError:
-                self.append(super().__getitem__(-1) + super().__getitem__(-2))
+                self.append( super(InfinityList, self).__getitem__(-1) +
+                             super(InfinityList, self).__getitem__(-2) )
 
     def __init__(self):
-        super().__init__([1, 1])
+        super(InfinityList, self).__init__([1, 1])
 
 
 class prime(InfinityList):
     def __getitem__(self, n):
         while True:
             try:
-                return super().__getitem__(n)
+                return super(InfinityList, self).__getitem__(n)
             except IndexError:
-                c = super().__getitem__(-1)
+                c = super(InfinityList, self).__getitem__(-1)
                 while True:
                     c += 2
                     for p in self[:]:
@@ -81,7 +82,7 @@ class prime(InfinityList):
                         break
 
     def __init__(self):
-        super().__init__([2, 3])
+        super(InfinityList, self).__init__([2, 3])
 
 
 fibonacci = fibonacci()
