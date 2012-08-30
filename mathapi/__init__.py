@@ -39,12 +39,19 @@ class Fraction(Fraction):
 
 
 class InfinityList(list):
+    def under(self, s):
+        n = 0
+        while self[n] < s:
+            yield self[n]
+            n += 1
+        #return super(InfinityList, self).__iter__()
+
     def __iter__(self):
         n = 0
         while True:
             yield self[n]
             n += 1
-
+    
     def __str__(self):
         return super(InfinityList, self).__str__()[:-1] + ', ...]'
 
@@ -74,7 +81,7 @@ class prime(InfinityList):
                 c = super(InfinityList, self).__getitem__(-1)
                 while True:
                     c += 2
-                    for p in self[:]:
+                    for p in self.under(int(c**(1.0/2.0)) + 1):
                         if not c % p:
                             break
                     else:
