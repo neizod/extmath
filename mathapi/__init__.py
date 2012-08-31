@@ -44,7 +44,6 @@ class InfinityList(list):
         while self[n] < s:
             yield self[n]
             n += 1
-        #return super(InfinityList, self).__iter__()
 
     def __iter__(self):
         n = 0
@@ -52,9 +51,6 @@ class InfinityList(list):
             yield self[n]
             n += 1
     
-    #def __str__(self):
-    #    return super(InfinityList, self).__str__()[:-1] + ', ...]'
-
     def __repr__(self):
         return super(InfinityList, self).__repr__()[:-1] + ', ...]'
 
@@ -124,8 +120,6 @@ def factorized(n):
             n /= i
         if n == 1:
             break
-    else:
-        factor.append(n)
     return factor
 
 def divisors(n):
