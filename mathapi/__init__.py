@@ -52,8 +52,8 @@ class InfinityList(list):
             yield self[n]
             n += 1
     
-    def __str__(self):
-        return super(InfinityList, self).__str__()[:-1] + ', ...]'
+    #def __str__(self):
+    #    return super(InfinityList, self).__str__()[:-1] + ', ...]'
 
     def __repr__(self):
         return super(InfinityList, self).__repr__()[:-1] + ', ...]'
