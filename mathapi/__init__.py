@@ -116,6 +116,9 @@ def factorized(n):
         return [1]
     factor = []
     for i in prime.under(int(n**0.5) + 1):
+        if i**2 > n:
+            factor.append(n)
+            break
         while not n % i:
             factor.append(i)
             n /= i
