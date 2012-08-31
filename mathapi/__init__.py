@@ -81,7 +81,7 @@ class prime(InfinityList):
                 c = super(InfinityList, self).__getitem__(-1)
                 while True:
                     c += 2
-                    for p in self.under(int(c**(1.0/2.0)) + 1):
+                    for p in self.under(int(c**0.5) + 1):
                         if not c % p:
                             break
                     else:
@@ -115,12 +115,14 @@ def factorized(n):
     if n == 1:
         return [1]
     factor = []
-    for i in prime:
+    for i in prime.under(int(n**0.5) + 1):
         while not n % i:
             factor.append(i)
             n /= i
         if n == 1:
             break
+    else:
+        factor.append(n)
     return factor
 
 def divisors(n):
