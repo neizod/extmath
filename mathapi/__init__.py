@@ -117,7 +117,7 @@ def factorized(n):
             break
         while not n % i:
             factor.append(i)
-            n /= i
+            n //= i
         if n == 1:
             break
     return factor
