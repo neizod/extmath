@@ -69,6 +69,15 @@ class fibonacci(InfinityList):
 
 
 class prime(InfinityList):
+    def test(self, n):
+        if n <= 1:
+            return False
+        for i in self:
+            if i**2 > n:
+                return True
+            if not n % i:
+                return False
+
     def __getitem__(self, n):
         while True:
             try:
