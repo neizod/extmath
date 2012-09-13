@@ -56,6 +56,20 @@ class InfinityList(list):
 
 
 class fibonacci(InfinityList):
+    def position(self, n, m={0:1, 1:1}):
+        '''An implementation of E.W.Dijkstra method, O(log n).
+
+        see also: <http://www.cs.utexas.edu/users/EWD/ewd06xx/EWD654.PDF>'''
+        if n in m:
+            return m[n]
+        if not n % 2:
+            m[n] = self.position(n//2-1, m)**2 + \
+                   self.position(n//2, m)**2
+        else:
+            m[n] = self.position(n//2, m)**2 + \
+                   self.position(n//2, m) * self.position(n//2-1, m) * 2
+        return m[n]
+
     def __getitem__(self, n):
         while True:
             try:
