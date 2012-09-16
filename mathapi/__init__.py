@@ -14,16 +14,16 @@ class Fraction(Fraction):
 
         n, d = self.numerator, self.denominator
 
-        t, s = '', []
-        while s.count(n) < 2:
+        t, s = '', {}
+        while len(s.get(n, [])) < 2:
             t += str(n // d) + ('.' if not t else '')
             n %= d
             if not n:
                 break
             n *= 10
-            s.append(n)
+            s[n] = s.get(n, []) + [len(s)]
         else:
-            r = s.index(s.pop()) - len(s)
+            r = s[n][-1] - len(s) + 2
             ti, tr = t[:r], t[r:]
             if not sep:
                 sep_l, sep_r = '', '...'
@@ -62,12 +62,12 @@ class fibonacci(InfinityList):
         see also: <http://www.cs.utexas.edu/users/EWD/ewd06xx/EWD654.PDF>'''
         if n in m:
             return m[n]
-        if not n % 2:
-            m[n] = self.position(n//2-1, m)**2 + \
-                   self.position(n//2, m)**2
-        else:
+        if n % 2:
             m[n] = self.position(n//2, m)**2 + \
                    self.position(n//2, m) * self.position(n//2-1, m) * 2
+        else:
+            m[n] = self.position(n//2-1, m)**2 + \
+                   self.position(n//2, m)**2
         return m[n]
 
     def __getitem__(self, n):
