@@ -23,7 +23,7 @@ class Fraction(Fraction):
             n *= 10
             s[n] = s.get(n, []) + [len(s)]
         else:
-            r = s[n][-1] - len(s) + 2
+            r = s[n][0] - len(s)
             ti, tr = t[:r], t[r:]
             if not sep:
                 sep_l, sep_r = '', '...'
