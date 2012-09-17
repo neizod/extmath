@@ -15,27 +15,26 @@ class Fraction(Fraction):
         n, d = self.numerator, self.denominator
 
         t, s = '', {}
-        while len(s.get(n, [])) < 2:
+        while n:
             t += str(n // d) + ('.' if not t else '')
-            n %= d
-            if not n:
+            n = 10 * (n % d)
+            if n in s:
                 break
-            n *= 10
-            s[n] = s.get(n, []) + [len(s)]
+            s[n] = len(s)
         else:
-            r = s[n][-1] - len(s) + 2
-            ti, tr = t[:r], t[r:]
-            if not sep:
-                sep_l, sep_r = '', '...'
-                tr *= 2
-            elif len(sep) == 1:
-                sep_l = sep_r = sep * 3
-            else:
-                sep_l, sep_r = sep[0], sep[1]
+            return t if t[-1] != '.' else t[:-1]
 
-            return ti + sep_l + tr + sep_r
+        r = s[n] - len(s)
+        ti, tr = t[:r], t[r:]
+        if not sep:
+            sep_l, sep_r = '', '...'
+            tr *= 2
+        elif len(sep) == 1:
+            sep_l = sep_r = sep * 3
+        else:
+            sep_l, sep_r = sep[0], sep[1]
 
-        return t if t[-1] != '.' else t[:-1]
+        return ti + sep_l + tr + sep_r
 
 
 class InfinityList(list):
