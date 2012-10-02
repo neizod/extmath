@@ -1,4 +1,4 @@
-from fractions import Fraction
+from fractions import Fraction, Decimal
 from itertools import product as cartesian_product
 
 class Fraction(Fraction):
@@ -82,6 +82,8 @@ class fibonacci(InfinityList):
 
 
 class prime(InfinityList):
+    __sieve_index = 0
+
     def test(self, n):
         if n <= 1:
             return False
@@ -96,15 +98,13 @@ class prime(InfinityList):
             try:
                 return super(InfinityList, self).__getitem__(n)
             except IndexError:
-                c = super(InfinityList, self).__getitem__(-1)
-                while True:
-                    c += 2
-                    for p in self.under(int(c**0.5) + 1):
-                        if not c % p:
-                            break
-                    else:
-                        self.append(c)
-                        break
+                fst = self[self.__sieve_index]**2 + 1
+                self.__sieve_index += 1
+                lst = self[self.__sieve_index]**2
+                l = list(range(fst, lst))
+                for p in self[:self.__sieve_index]:
+                    l[(p-fst)%p::p] = [0] * len(l[(p-fst)%p::p])
+                self.extend(p for p in l if p)
 
     def __init__(self):
         super(InfinityList, self).__init__([2, 3])
