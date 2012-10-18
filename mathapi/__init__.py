@@ -37,7 +37,7 @@ class Fraction(Fraction):
         return ti + sep_l + tr + sep_r
 
 
-class InfinityList(list):
+class InfiniteList(list):
     def under(self, s):
         n = 0
         while self[n] < s:
@@ -51,10 +51,10 @@ class InfinityList(list):
             n += 1
     
     def __repr__(self):
-        return super(InfinityList, self).__repr__()[:-1] + ', ...]'
+        return super(InfiniteList, self).__repr__()[:-1] + ', ...]'
 
 
-class fibonacci(InfinityList):
+class fibonacci(InfiniteList):
     def position(self, n, m={0:1, 1:1}):
         '''An implementation of E.W.Dijkstra method, O(log n).
 
@@ -72,16 +72,16 @@ class fibonacci(InfinityList):
     def __getitem__(self, n):
         while True:
             try:
-                return super(InfinityList, self).__getitem__(n)
+                return super(InfiniteList, self).__getitem__(n)
             except IndexError:
-                self.append( super(InfinityList, self).__getitem__(-1) +
-                             super(InfinityList, self).__getitem__(-2) )
+                self.append( super(InfiniteList, self).__getitem__(-1) +
+                             super(InfiniteList, self).__getitem__(-2) )
 
     def __init__(self):
-        super(InfinityList, self).__init__([1, 1])
+        super(InfiniteList, self).__init__([1, 1])
 
 
-class prime(InfinityList):
+class prime(InfiniteList):
     __sieve_index = 0
 
     def test(self, n):
@@ -96,7 +96,7 @@ class prime(InfinityList):
     def __getitem__(self, n):
         while True:
             try:
-                return super(InfinityList, self).__getitem__(n)
+                return super(InfiniteList, self).__getitem__(n)
             except IndexError:
                 fst = self[self.__sieve_index]**2 + 1
                 self.__sieve_index += 1
@@ -107,7 +107,7 @@ class prime(InfinityList):
                 self.extend(p for p in l if p)
 
     def __init__(self):
-        super(InfinityList, self).__init__([2, 3])
+        super(InfiniteList, self).__init__([2, 3])
 
 
 fibonacci = fibonacci()
