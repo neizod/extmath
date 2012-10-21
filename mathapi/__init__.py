@@ -98,13 +98,14 @@ class prime(InfiniteList):
             try:
                 return super(InfiniteList, self).__getitem__(n)
             except IndexError:
-                fst = self[self.__sieve_index]**2 + 1
+                head = self[self.__sieve_index]**2 + 1
                 self.__sieve_index += 1
-                lst = self[self.__sieve_index]**2
-                l = list(range(fst, lst))
+                last = self[self.__sieve_index]**2
+                sieve = list(range(head, last))
                 for p in self[:self.__sieve_index]:
-                    l[(p-fst)%p::p] = [0] * len(l[(p-fst)%p::p])
-                self.extend(p for p in l if p)
+                    size = (last - head + (head % -p)) // p + 1
+                    sieve[-head % p::p] = [0] * size
+                self.extend(p for p in sieve if p)
 
     def __init__(self):
         super(InfiniteList, self).__init__([2, 3])
