@@ -136,13 +136,12 @@ def factorized(n):
     factor = []
     for i in prime:
         if i**2 > n:
-            factor.append(n)
             break
         while not n % i:
             factor.append(i)
             n //= i
-        if n == 1:
-            break
+    if n > 1:
+        factor.append(n)
     return factor
 
 def divisors(n):
