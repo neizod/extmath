@@ -156,6 +156,18 @@ def divisors(n):
     group = ({p**i for i in range(factor.count(p)+1)} for p in unique)
     return sorted(prod(c) for c in cartesian_product(*group))
 
+
+def phi(n):
+    '''phi(number) -> number
+    
+    Euler's totient function, number of all 0 < a < n where gcd(a, n) == 1.'''
+
+    if n == 1:
+        return 1
+    factor = factorized(n)
+    group = ((p, factor.count(p)) for p in set(factor))
+    return prod((p-1) * p**(k-1) for p, k in group)
+
 def summation(n, p=1):
     '''summation(stop_number[, power]) -> int
 
