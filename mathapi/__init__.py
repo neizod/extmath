@@ -84,7 +84,9 @@ class fibonacci(InfiniteList):
 class prime(InfiniteList):
     __sieve_index = 0
 
-    def test(self, n):
+    def __contains__(self, n):
+        if not isinstance(n, int):
+            raise TypeError
         if n <= 1:
             return False
         for i in self:
