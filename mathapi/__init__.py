@@ -37,9 +37,11 @@ class Fraction(Fraction):
         return ti + sep_l + tr + sep_r
 
 
-def infinitelist(cls):
-    '''as class decorator'''
-    return cls()
+def infinitelist(value):
+    '''as class decorator, with initial value.'''
+    def initialize(cls):
+        return cls(value)
+    return initialize
 
 class InfiniteList(list):
     def under(self, s):
@@ -58,7 +60,7 @@ class InfiniteList(list):
         return super(InfiniteList, self).__repr__()[:-1] + ', ...]'
 
 
-@infinitelist
+@infinitelist([1, 1])
 class fibonacci(InfiniteList):
     def position(self, n, m={0:1, 1:1}):
         '''An implementation of E.W.Dijkstra method, O(log n).
@@ -82,11 +84,8 @@ class fibonacci(InfiniteList):
                 self.append( super(InfiniteList, self).__getitem__(-1) +
                              super(InfiniteList, self).__getitem__(-2) )
 
-    def __init__(self):
-        super(InfiniteList, self).__init__([1, 1])
 
-
-@infinitelist
+@infinitelist([2, 3])
 class prime(InfiniteList):
     __sieve_index = 0
     def index(self, n):
@@ -120,9 +119,6 @@ class prime(InfiniteList):
                     size = (last - head + (head % -p)) // p + 1
                     sieve[-head % p::p] = [0] * size
                 self.extend(p for p in sieve if p)
-
-    def __init__(self):
-        super(InfiniteList, self).__init__([2, 3])
 
 
 def prod(l):
