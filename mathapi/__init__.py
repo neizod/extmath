@@ -121,6 +121,32 @@ class prime(InfiniteList):
                 self.extend(p for p in sieve if p)
 
 
+def duality(value):
+    '''as function decorator, with initial value.'''
+    def initialize(func):
+        class Duality(type(value)):
+            __doc__ = func.__doc__
+            def __call__(self, *args, **kwargs):
+                return func(*args, **kwargs)
+        return Duality(value)
+    return initialize
+
+@duality((1 + 5**0.5) / 2)
+def phi(n):
+    '''Duality number-function data type.
+
+    as number: phi -> 1.618033988...
+        Golden Ratio, real number where phi == 1 + 1/phi.
+
+    as function: phi(number) -> number
+        Euler's totient, number of all 0 < a < n where gcd(a, n) == 1.'''
+
+    if n == 1:
+        return 1
+    factor = factorized(n)
+    group = ((p, factor.count(p)) for p in set(factor))
+    return prod((p-1) * p**(k-1) for p, k in group)
+
 def prod(l):
     '''prod(iterable) -> value'''
 
@@ -161,18 +187,6 @@ def divisors(n):
     unique = set(factor)
     group = ({p**i for i in range(factor.count(p)+1)} for p in unique)
     return sorted(prod(c) for c in cartesian_product(*group))
-
-
-def phi(n):
-    '''phi(number) -> number
-    
-    Euler's totient function, number of all 0 < a < n where gcd(a, n) == 1.'''
-
-    if n == 1:
-        return 1
-    factor = factorized(n)
-    group = ((p, factor.count(p)) for p in set(factor))
-    return prod((p-1) * p**(k-1) for p, k in group)
 
 def summation(n, p=1):
     '''summation(stop_number[, power]) -> int
