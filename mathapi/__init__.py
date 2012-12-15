@@ -40,28 +40,29 @@ class Fraction(Fraction):
 def infinitelist(value):
     '''as class decorator, with initial value.'''
     def initialize(cls):
-        return cls(value)
+        class InfiniteList(cls):
+            def under(self, s):
+                n = 0
+                while self[n] < s:
+                    yield self[n]
+                    n += 1
+
+            def __iter__(self):
+                n = 0
+                while True:
+                    yield self[n]
+                    n += 1
+            
+            def __repr__(self):
+                return super(InfiniteList, self).__repr__()[:-1] + ', ...]'
+
+        return InfiniteList(value)
     return initialize
 
-class InfiniteList(list):
-    def under(self, s):
-        n = 0
-        while self[n] < s:
-            yield self[n]
-            n += 1
-
-    def __iter__(self):
-        n = 0
-        while True:
-            yield self[n]
-            n += 1
-    
-    def __repr__(self):
-        return super(InfiniteList, self).__repr__()[:-1] + ', ...]'
 
 
 @infinitelist([1, 1])
-class fibonacci(InfiniteList):
+class fibonacci(list):
     def position(self, n, m={0:1, 1:1}):
         '''An implementation of E.W.Dijkstra method, O(log n).
 
@@ -77,23 +78,25 @@ class fibonacci(InfiniteList):
         return m[n]
 
     def __getitem__(self, n):
+        base = type(self).__bases__[0]
         while True:
             try:
-                return super(InfiniteList, self).__getitem__(n)
+                return super(base, self).__getitem__(n)
             except IndexError:
-                self.append( super(InfiniteList, self).__getitem__(-1) +
-                             super(InfiniteList, self).__getitem__(-2) )
+                self.append( super(base, self).__getitem__(-1) +
+                             super(base, self).__getitem__(-2) )
 
 
 @infinitelist([2, 3])
-class prime(InfiniteList):
+class prime(list):
     __sieve_index = 0
     def index(self, n):
+        base = type(self).__bases__[0]
         if n not in self:
             raise ValueError('{} is not prime'.format(n))
         while n > self[-1]:
             self[len(self)]
-        return super(InfiniteList, self).index(n)
+        return super(base, self).index(n)
 
     def __contains__(self, n):
         if not isinstance(n, int):
@@ -107,9 +110,10 @@ class prime(InfiniteList):
                 return False
 
     def __getitem__(self, n):
+        base = type(self).__bases__[0]
         while True:
             try:
-                return super(InfiniteList, self).__getitem__(n)
+                return super(base, self).__getitem__(n)
             except IndexError:
                 head = self[self.__sieve_index]**2 + 1
                 self.__sieve_index += 1
