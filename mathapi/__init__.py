@@ -131,6 +131,7 @@ def duality(value):
         return Duality(value)
     return initialize
 
+
 @duality((1 + 5**0.5) / 2)
 def phi(n):
     '''Duality number-function data type.
@@ -146,6 +147,20 @@ def phi(n):
     factor = factorized(n)
     group = ((p, factor.count(p)) for p in set(factor))
     return prod((p-1) * p**(k-1) for p, k in group)
+
+
+@duality(3.141592653589793)
+def pi(n):
+    '''Duality number-function data type.
+
+    as number: pi -> 3.141592653...
+        Ratio of a circle's circumference to its diameter.
+
+    as function: pi(number) -> number
+        Prime-counting, number of all 0 < p <= n where p is a prime number'''
+
+    return sum(1 for p in prime.under(n+1))
+
 
 def prod(l):
     '''prod(iterable) -> value'''
