@@ -39,8 +39,8 @@ class Fraction(Fraction):
 
 def infinitelist(value):
     '''as class decorator, with initial value.'''
-    def initialize(cls):
-        class InfiniteList(cls):
+    def initialize(func):
+        class InfiniteList(list):
             def under(self, s):
                 n = 0
                 while self[n] < s:
@@ -56,13 +56,16 @@ def infinitelist(value):
             def __repr__(self):
                 return super(InfiniteList, self).__repr__()[:-1] + ', ...]'
 
+        # overwrite attributes that are specificaly defined.
+        for name, attr in func(InfiniteList).items():
+            setattr(InfiniteList, name, attr)
+
         return InfiniteList(value)
     return initialize
 
 
-
 @infinitelist([1, 1])
-class fibonacci(list):
+def fibonacci(base):
     def position(self, n, m={0:1, 1:1}):
         '''An implementation of E.W.Dijkstra method, O(log n).
 
@@ -78,7 +81,6 @@ class fibonacci(list):
         return m[n]
 
     def __getitem__(self, n):
-        base = type(self).__bases__[0]
         while True:
             try:
                 return super(base, self).__getitem__(n)
@@ -86,12 +88,11 @@ class fibonacci(list):
                 self.append( super(base, self).__getitem__(-1) +
                              super(base, self).__getitem__(-2) )
 
+    return locals()
 
 @infinitelist([2, 3])
-class prime(list):
-    __sieve_index = 0
+def prime(base):
     def index(self, n):
-        base = type(self).__bases__[0]
         if n not in self:
             raise ValueError('{} is not prime'.format(n))
         while n > self[-1]:
@@ -110,7 +111,6 @@ class prime(list):
                 return False
 
     def __getitem__(self, n):
-        base = type(self).__bases__[0]
         while True:
             try:
                 return super(base, self).__getitem__(n)
@@ -124,6 +124,11 @@ class prime(list):
                     sieve[-head % p::p] = [0] * size
                 self.extend(p for p in sieve if p)
 
+    def __init__(self, value):
+        self.__sieve_index = 0
+        super(base, self).__init__(value)
+
+    return locals()
 
 def duality(value):
     '''as function decorator, with initial value.'''
