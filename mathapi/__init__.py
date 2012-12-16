@@ -38,9 +38,24 @@ class Fraction(Fraction):
 
 
 def infinitelist(value):
-    '''as class decorator, with initial value.'''
+    '''As function decorator, with initial value.
+
+    Sample usage:
+
+    >>> @infinitelist([1, 2, 3])
+    ... def sequence(class_base):
+    ...     def __getitem__(self, value):
+    ...         # define custom __getitem__ method here.
+    ...         super(class_base, self).__getitem__(value)
+    ...     return locals()
+    ...
+    >>> sequence
+    [1, 2, 3, ...]
+    '''
     def initialize(func):
         class InfiniteList(list):
+            __doc__ = func.__doc__
+
             def under(self, s):
                 n = 0
                 while self[n] < s:
@@ -66,6 +81,8 @@ def infinitelist(value):
 
 @infinitelist([1, 1])
 def fibonacci(base):
+    '''Fibonacci sequence'''
+
     def position(self, n, m={0:1, 1:1}):
         '''An implementation of E.W.Dijkstra method, O(log n).
 
@@ -90,8 +107,11 @@ def fibonacci(base):
 
     return locals()
 
+
 @infinitelist([2, 3])
 def prime(base):
+    '''Prime number sequence'''
+
     def index(self, n):
         if n not in self:
             raise ValueError('{} is not prime'.format(n))
@@ -130,13 +150,28 @@ def prime(base):
 
     return locals()
 
+
 def duality(value):
-    '''as function decorator, with initial value.'''
+    '''As function decorator, with initial value.
+
+    Sample usage:
+
+    >>> @duality(1.23456789)
+    ... def geek(n):
+    ...     return 1/n**2 + 1/n
+    ...
+    >>> geek * 5
+    6.17283945
+    >>> geek(9)
+    0.12345679012345678
+    '''
     def initialize(func):
         class Duality(type(value)):
             __doc__ = func.__doc__
+
             def __call__(self, *args, **kwargs):
                 return func(*args, **kwargs)
+
         return Duality(value)
     return initialize
 
