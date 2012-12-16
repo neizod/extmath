@@ -1,14 +1,16 @@
-=================
-`mathapi` doctest
-=================
+===================
+``mathapi`` Doctest
+===================
 
-To test this module, importing is a must.
+This doctest also help user learn ``mathapi``'s features.
+
+To experiment with this module, import it first.
 
 >>> from mathapi import *
 
-The `import *` is just for convenience, since every items will be tested.
+The ``import *`` is just for convenience, since every items will be tested.
 
-Help from other modules also needed, but not `import *` to prevent collision.
+Help from other modules also needed, but not ``import *`` to prevent collision.
 
 >>> import math
 >>> import itertools
@@ -70,7 +72,7 @@ This is also equalence to
 >>> prime[100]
 547
 
-To test whether n is prime, use `in` keyword.
+To test whether n is prime, use ``in`` keyword.
 
 >>> 43 in prime
 True
