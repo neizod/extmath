@@ -1,6 +1,7 @@
 from fractions import Fraction, Decimal
 from itertools import product as cartesian_product
 
+
 class Fraction(Fraction):
     def decimal(self, sep='()'):
         '''Show repeating decimal representation of the fraction.
@@ -42,15 +43,24 @@ def infinitelist(value):
 
     Sample usage:
 
-    >>> @infinitelist([1, 2, 3])
+    >>> @infinitelist([0, 1, 4, 9])
     ... def sequence(class_base):
-    ...     def __getitem__(self, value):
-    ...         # define custom __getitem__ method here.
-    ...         super(class_base, self).__getitem__(value)
+    ...     def __generate__(self):
+    ...         self.append(len(self) ** 2)
     ...     return locals()
     ...
     >>> sequence
-    [1, 2, 3, ...]
+    [0, 1, 4, 9, ...]
+    >>> sequence[10]
+    100
+    >>> sequence
+    [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, ...]
+
+    Since __getitem__ can be tricky (accept slice object, lots of boilerplate),
+    __generate__ can be use to figure out next-missing items instead.
+    It must be a function that accept `self` as one-and-only argument.
+    New items can be added by `self.append` or `self.extend`, no returns.
+    However, supplying other version of __getitem__ also possible.
     '''
     def initialize(func):
         class InfiniteList(list):
@@ -62,12 +72,19 @@ def infinitelist(value):
                     yield self[n]
                     n += 1
 
+            def __getitem__(self, value):
+                while True:
+                    try:
+                        return super(InfiniteList, self).__getitem__(value)
+                    except IndexError:
+                        self.__generate__()
+
             def __iter__(self):
                 n = 0
                 while True:
                     yield self[n]
                     n += 1
-            
+
             def __repr__(self):
                 return super(InfiniteList, self).__repr__()[:-1] + ', ...]'
 
@@ -83,27 +100,22 @@ def infinitelist(value):
 def fibonacci(base):
     '''Fibonacci sequence'''
 
-    def position(self, n, m={0:1, 1:1}):
+    def __call__(self, n, m={0: 1, 1: 1}):
         '''An implementation of E.W.Dijkstra method, O(log n).
 
         see also: <http://www.cs.utexas.edu/users/EWD/ewd06xx/EWD654.PDF>'''
+
         if n in m:
             return m[n]
         if n % 2:
-            m[n] = self.position(n//2, m)**2 + \
-                   self.position(n//2, m) * self.position(n//2-1, m) * 2
+            m[n] = self(n//2, m)**2 + self(n//2, m) * self(n//2-1, m) * 2
         else:
-            m[n] = self.position(n//2-1, m)**2 + \
-                   self.position(n//2, m)**2
+            m[n] = self(n//2-1, m)**2 + self(n//2, m)**2
         return m[n]
 
-    def __getitem__(self, n):
-        while True:
-            try:
-                return super(base, self).__getitem__(n)
-            except IndexError:
-                self.append( super(base, self).__getitem__(-1) +
-                             super(base, self).__getitem__(-2) )
+    def __generate__(self):
+        self.append( super(base, self).__getitem__(-1) +
+                     super(base, self).__getitem__(-2) )
 
     return locals()
 
@@ -130,19 +142,15 @@ def prime(base):
             if not n % i:
                 return False
 
-    def __getitem__(self, n):
-        while True:
-            try:
-                return super(base, self).__getitem__(n)
-            except IndexError:
-                head = self[self.__sieve_index]**2 + 1
-                self.__sieve_index += 1
-                last = self[self.__sieve_index]**2
-                sieve = list(range(head, last))
-                for p in self[:self.__sieve_index]:
-                    size = (last - head + (head % -p)) // p + 1
-                    sieve[-head % p::p] = [0] * size
-                self.extend(p for p in sieve if p)
+    def __generate__(self):
+        head = self[self.__sieve_index]**2 + 1
+        self.__sieve_index += 1
+        last = self[self.__sieve_index]**2
+        sieve = list(range(head, last))
+        for p in self[:self.__sieve_index]:
+            size = (last - head + (head % -p)) // p + 1
+            sieve[-head % p::p] = [0] * size
+        self.extend(p for p in sieve if p)
 
     def __init__(self, value):
         self.__sieve_index = 0
