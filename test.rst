@@ -43,10 +43,15 @@ This list of value will not growth until we need element beyond the last one.
 
 Prime number works sighly difference, it may produce primes more than expected.
 
->>> prime[10]
-31
+>>> prime[5]
+13
 >>> prime
-[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, ...]
+[2, 3, 5, 7, 11, 13, 17, 19, 23, ...]
+
+Slicing list of prime are possible, however.
+
+>>> prime[:12]
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
 
 Function
 ========

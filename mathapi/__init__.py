@@ -73,6 +73,11 @@ def infinitelist(value):
                     n += 1
 
             def __getitem__(self, value):
+                if isinstance(value, slice):
+                    if value.start is not None:
+                        self[value.start]
+                    if value.stop is not None:
+                        self[value.stop]
                 while True:
                     try:
                         return super(InfiniteList, self).__getitem__(value)
