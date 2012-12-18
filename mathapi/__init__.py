@@ -14,6 +14,8 @@ class Fraction(Fraction):
         this computation might take very long time too.'''
 
         n, d = self.numerator, self.denominator
+        if n == 0:
+            return '0.0'
 
         t, s = '', {}
         while n:
