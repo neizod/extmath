@@ -173,7 +173,7 @@ def duality(value):
 
     >>> @duality(1.23456789)
     ... def geek(n):
-    ...     return 1/n**2 + 1/n
+    ...     return 1.0 / n**2 + 1.0 / n
     ...
     >>> geek * 5
     6.17283945
