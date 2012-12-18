@@ -24,6 +24,8 @@ Avalable Feature
     - `prod`: Production of a list of numbers.
     - `summation`: Summation of numbers from `[1..n]`, or `[1**p..n**p]`.
 
+See document in file [test.rst](./test.rst)
+
 Installation
 ------------
 
