@@ -143,7 +143,7 @@ Extended Class
 
 ``Fraction.decimal`` will string of exact (repeating) decimal of the fraction.
 
->>> Fraction(1, 2).decinal()
+>>> Fraction(1, 2).decimal()
 '0.5'
 >>> Fraction(1, 7).decimal()
 '0.(142857)'
@@ -152,14 +152,14 @@ Extended Class
 
 Change the wrapper of repeating part by supplying string as argument.
 
->>> mathapi.Fraction(23, 42).decimal('.')
+>>> Fraction(23, 42).decimal('.')
 '0.5...476190...'
 >>> Fraction(23, 42).decimal('~~')
 '0.5~476190~'
 
 Given ``None`` to show repeating part twice, with trailing ellipsis.
 
->>> mathapi.Fraction(23, 42).decimal(None)
+>>> Fraction(23, 42).decimal(None)
 '0.5476190476190...'
 
 Meta
