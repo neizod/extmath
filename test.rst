@@ -53,6 +53,13 @@ Slicing list to get exact number of elements are possible, however.
 >>> prime[:12]
 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
 
+Take some values with ``prime.under``, this is same to ``itertools.takewhile``.
+
+>>> list(prime.under(53))
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+>>> list(itertools.takewhile(lambda x: x < 53, prime))
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+
 Function
 ========
 
@@ -131,6 +138,30 @@ It's can also power to each number like this
 >>> summation(10, 2)
 385
 
+Extended Class
+--------------
+
+``Fraction.decimal`` will string of exact (repeating) decimal of the fraction.
+
+>>> Fraction(1, 2).decinal()
+'0.5'
+>>> Fraction(1, 7).decimal()
+'0.(142857)'
+>>> Fraction(23, 42).decimal()
+'0.5(476190)'
+
+Change the wrapper of repeating part by supplying string as argument.
+
+>>> mathapi.Fraction(23, 42).decimal('.')
+'0.5...476190...'
+>>> Fraction(23, 42).decimal('~~')
+'0.5~476190~'
+
+Given ``None`` to show repeating part twice, with trailing ellipsis.
+
+>>> mathapi.Fraction(23, 42).decimal(None)
+'0.5476190476190...'
+
 Meta
 ====
 
@@ -161,4 +192,4 @@ This is quite same to infinite list, except you need to ``return locals()``.
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, ...]
 
 The ``__generate__`` method is just for convenience, it will be called when
-element at desire index is not yet create.
+element at desirable index is not yet create.
