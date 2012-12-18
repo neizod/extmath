@@ -117,7 +117,7 @@ Working with List of Numbers
 120
 
 While ``summation`` doesn't takes full list, it require just the last one.
-    and assume this list start from 1, with 1 step.
+and assume this list start from 1, with 1 step.
 
 >>> summation(100)
 5050
@@ -161,4 +161,4 @@ This is quite same to infinite list, except you need to ``return locals()``.
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, ...]
 
 The ``__generate__`` method is just for convenience, it will be called when
-    element at desire index is not yet create.
+element at desire index is not yet create.
