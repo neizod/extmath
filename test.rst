@@ -121,7 +121,7 @@ While ``summation`` doesn't takes full list, it require just the last one.
 
 >>> summation(100)
 5050
->>> mathapi.summation(1234567890)
+>>> summation(1234567890)
 762078938126809995
 
 It's can also power to each number like this
