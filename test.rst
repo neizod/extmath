@@ -53,8 +53,6 @@ Slicing list to get exact number of elements are possible, however.
 >>> prime[:12]
 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
 
-Note: slicing technique will not work in Python 2.
-
 Take some values with ``prime.under``, this is same to ``itertools.takewhile``.
 
 >>> list(prime.under(53))

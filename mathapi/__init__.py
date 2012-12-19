@@ -86,6 +86,14 @@ def infinitelist(value):
                     except IndexError:
                         self.__generate__()
 
+            def __getslice__(self, start, stop):
+                '''python2 backward compatibility'''
+                if start is not None:
+                    self[start]
+                if stop is not None:
+                    self[stop]
+                return self[slice(start, stop, None)]
+
             def __iter__(self):
                 n = 0
                 while True:
