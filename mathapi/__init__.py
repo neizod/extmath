@@ -120,12 +120,11 @@ def fibonacci(base):
 
         see also: <http://www.cs.utexas.edu/users/EWD/ewd06xx/EWD654.PDF>'''
 
-        if n in m:
-            return m[n]
-        if n % 2:
-            m[n] = self(n//2, m)**2 + self(n//2, m) * self(n//2-1, m) * 2
-        else:
-            m[n] = self(n//2-1, m)**2 + self(n//2, m)**2
+        if n not in m:
+            if n % 2:
+                m[n] = self(n//2, m)**2 + self(n//2-1, m) * self(n//2, m) * 2
+            else:
+                m[n] = self(n//2, m)**2 + self(n//2-1, m)**2
         return m[n]
 
     def __generate__(self):
@@ -191,10 +190,7 @@ def duality(value):
     def initialize(func):
         class Duality(type(value)):
             __doc__ = func.__doc__
-
-            def __call__(self, *args, **kwargs):
-                return func(*args, **kwargs)
-
+            __call__ = func.__call__
         return Duality(value)
     return initialize
 
