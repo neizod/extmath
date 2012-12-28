@@ -2,42 +2,44 @@ from fractions import Fraction, Decimal
 from itertools import product as cartesian_product
 
 
-class Fraction(Fraction):
-    def decimal(self, sep='()'):
-        '''Show repeating decimal representation of the fraction.
+def _decimal(self, sep='()'):
+    '''Show repeating decimal representation of the fraction.
 
-        >>> Fraction(1, 7).decimal()
-        '0.(142857)'
+    >>> Fraction(1, 7).decimal()
+    '0.(142857)'
 
-        Warning! Since the repeating part can contain as much digits as
-        the size of the denominator (especially if its a prime number),
-        this computation might take very long time too.'''
+    Warning! Since the repeating part can contain as much digits as
+    the size of the denominator (especially if its a prime number),
+    this computation might take very long time too.'''
 
-        n, d = self.numerator, self.denominator
-        if n == 0:
-            return '0.0'
+    n, d = self.numerator, self.denominator
+    if n == 0:
+        return '0.0'
 
-        t, s = '', {}
-        while n:
-            t += str(n // d) + ('.' if not t else '')
-            n = 10 * (n % d)
-            if n in s:
-                break
-            s[n] = len(s)
-        else:
-            return t if t[-1] != '.' else t[:-1]
+    t, s = '', {}
+    while n:
+        t += str(n // d) + ('.' if not t else '')
+        n = 10 * (n % d)
+        if n in s:
+            break
+        s[n] = len(s)
+    else:
+        return t if t[-1] != '.' else t[:-1]
 
-        r = s[n] - len(s)
-        ti, tr = t[:r], t[r:]
-        if not sep:
-            sep_l, sep_r = '', '...'
-            tr *= 2
-        elif len(sep) == 1:
-            sep_l = sep_r = sep * 3
-        else:
-            sep_l, sep_r = sep[0], sep[1]
+    r = s[n] - len(s)
+    ti, tr = t[:r], t[r:]
+    if not sep:
+        sep_l, sep_r = '', '...'
+        tr *= 2
+    elif len(sep) == 1:
+        sep_l = sep_r = sep * 3
+    else:
+        sep_l, sep_r = sep[0], sep[1]
 
-        return ti + sep_l + tr + sep_r
+    return ti + sep_l + tr + sep_r
+
+Fraction.decimal = _decimal
+del _decimal
 
 
 def infinitelist(value):
@@ -266,23 +268,28 @@ def divisors(n):
     group = ({p**i for i in range(factor.count(p)+1)} for p in unique)
     return sorted(prod(c) for c in cartesian_product(*group))
 
-def summation(n, p=1):
-    '''summation(stop_number[, power]) -> int
+def sumpow(n, p=1):
+    '''sumpow(stop_number[, power]) -> int
 
-    Summation of numbers in [1..n], e.g. summation(10) -> 55
+    Summation from 1**p to n**p, calculate by Bernulli/Faulgaber's formula.
+
+    >>> sumpow(10)
+    55
+    >>> sumpow(10, 2)
+    385
 
     Step of each seq is 1. If you need the summation of odd or even,
     Do some mathematical proove that gives, for example,
 
-        summation(n if n is even) =  2 + 4 + 6 + ... + n
-                                  = (1 + 2 + 3 + ... + n/2)*2
+        summation(n if n is even) =      2 + 4 + 6 + ... + n
+                                  = 2 * (1 + 2 + 3 + ... + n/2)
                                   = 2 * summation(n/2)
 
     The start number is also 1. You may now figure out that,
 
         summation([5..10]) = summation(10) - summation(5-1)
 
-    Avalable power now implement only for p=[0..3]. TODO
+    Avalable power now implement only for p=[0..4]. TODO
 
     Complexity is O(p log p), (considered power done in O(log p) time).
     While sum(i**p for i in range(1, n+1)) required O(n log p) time.
@@ -292,11 +299,16 @@ def summation(n, p=1):
     if p == 0:
         return n
     elif p == 1:
+        # triangular numbers
         return n * (n + 1) // 2
     elif p == 2:
+        # square pyramidal numbers
         return n * (n + 1) * (2*n + 1) // 6
     elif p == 3:
+        # square triangular numbers
         return (n * (n + 1) // 2) ** 2
+    elif p == 4:
+        return (6*n**5 + 15*n**4 + 10*n**3 - n) // 30
     else:
         raise NotImplementedError
 
