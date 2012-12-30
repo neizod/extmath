@@ -211,7 +211,7 @@ def phi(n):
         return 1
     factor = factorized(n)
     group = ((p, factor.count(p)) for p in set(factor))
-    return prod((p-1) * p**(k-1) for p, k in group)
+    return product((p-1) * p**(k-1) for p, k in group)
 
 
 @duality(3.141592653589793)
@@ -227,8 +227,8 @@ def pi(n):
     return sum(1 for p in prime.under(n+1))
 
 
-def prod(l):
-    '''prod(iterable) -> value'''
+def product(l):
+    '''product(iterable) -> value'''
 
     s = 1
     for n in l:
@@ -266,7 +266,7 @@ def divisors(n):
     factor = factorized(abs(n))
     unique = set(factor)
     group = ({p**i for i in range(factor.count(p)+1)} for p in unique)
-    return sorted(prod(c) for c in cartesian_product(*group))
+    return sorted(product(c) for c in cartesian_product(*group))
 
 def sumpow(n, p=1):
     '''sumpow(stop_number[, power]) -> int
