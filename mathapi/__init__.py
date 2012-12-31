@@ -1,5 +1,6 @@
 from fractions import Fraction, Decimal
 from itertools import product as cartesian_product
+from collections import Counter
 
 
 def _decimal(self, sep='()'):
@@ -267,6 +268,15 @@ def divisors(n):
     unique = set(factor)
     group = ({p**i for i in range(factor.count(p)+1)} for p in unique)
     return sorted(product(c) for c in cartesian_product(*group))
+
+def sumexp(r, k):
+    '''sumexp(base, stop_power) -> int
+
+    Summation from r**0 to r**k, by telescoping method.'''
+
+    if r == 1:
+        return k + 1
+    return (r**(k+1) - 1) // (r - 1)
 
 def sumpow(n, p=1):
     '''sumpow(stop_number[, power]) -> int
