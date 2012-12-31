@@ -1,6 +1,5 @@
 from fractions import Fraction, Decimal
 from itertools import product as cartesian_product
-from collections import Counter
 
 
 def _decimal(self, sep='()'):
@@ -226,6 +225,32 @@ def pi(n):
         Prime-counting, number of all 0 < p <= n where p is a prime number'''
 
     return sum(1 for p in prime.under(n+1))
+
+
+def indexargument(func):
+    class IndexArgument:
+        __doc__ = func.__doc__
+        __repr__ = func.__repr__
+        __call__ = func.__call__
+        def __getitem__(self, x):
+            def partial(*args):
+                args += (x,)
+                return func(*args)
+            return partial
+    return IndexArgument()
+
+
+@indexargument
+def sigma(n, x=1):
+    '''sigma(int) -> int
+    
+    Divisor's sigma function'''
+
+    if n == 1:
+        return 1
+    factor = factorized(n)
+    factor_tuple = ((p, factor.count(p)) for p in set(factor))
+    return product(sumexp(k**x, v) for k, v in factor_tuple)
 
 
 def product(l):
