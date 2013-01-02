@@ -209,9 +209,7 @@ def phi(n):
 
     if n == 1:
         return 1
-    factor = factorized(n)
-    group = ((p, factor.count(p)) for p in set(factor))
-    return product((p-1) * p**(k-1) for p, k in group)
+    return product((p-1) * p**(k-1) for p, k in group(factorized(n)))
 
 
 @duality(3.141592653589793)
@@ -248,9 +246,7 @@ def sigma(n, x=1):
 
     if n == 1:
         return 1
-    factor = factorized(n)
-    factor_tuple = ((p, factor.count(p)) for p in set(factor))
-    return product(sumexp(k**x, v) for k, v in factor_tuple)
+    return product(sumexp(p**x, k) for p, k in group(factorized(n)))
 
 
 def product(l):
@@ -260,6 +256,13 @@ def product(l):
     for n in l:
         s *= n
     return s
+
+
+def group(l):
+    '''group(iterable) -> generator'''
+
+    return ((n, l.count(n)) for n in set(l))
+
 
 def factorized(n):
     '''factorized(number) -> list
@@ -289,10 +292,8 @@ def divisors(n):
 
     if not n:
         return []
-    factor = factorized(abs(n))
-    unique = set(factor)
-    group = ({p**i for i in range(factor.count(p)+1)} for p in unique)
-    return sorted(product(c) for c in cartesian_product(*group))
+    factor_set = ({p**i for i in range(k+1)} for p, k in group(factorized(n)))
+    return sorted(product(c) for c in cartesian_product(*factor_set))
 
 def sumexp(r, k):
     '''sumexp(base, stop_power) -> int
