@@ -21,8 +21,9 @@ Avalable Feature
     - `divisors`: Show all positive divisable numbers of a number.
     - `Fraction.decimal`: Show repeating decimal of a fraction number.
 - Arithmetic Function
-    - `prod`: Production of a list of numbers.
-    - `summation`: Summation of numbers from `[1..n]`, or `[1**p..n**p]`.
+    - `product`: Production of a list of numbers.
+    - `sumpow`: Summation of numbers from `[1..n]`, or `[1**p..n**p]`.
+    - `sumexp`: Summation of numbers from `[r**0..r**k]`.
 
 See document in file `test.rst`
 
