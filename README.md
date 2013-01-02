@@ -16,6 +16,8 @@ Avalable Feature
 - Duality Value-Function Data Type
     - `pi`: 3.1416..., or prime-counting function.
     - `phi`: 1.6180..., or Euler's totient function.
+- Subscriptable Function
+    - `sigma`: divisor function, `sigma[0]` for len and `sigma[1]` for sum.
 - Number Theory
     - `factorized`: Prime factorization of a number.
     - `divisors`: Show all positive divisable numbers of a number.

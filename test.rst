@@ -101,12 +101,14 @@ To get list of all dividable, use ``divisors``.
 >>> divisors(42)
 [1, 2, 3, 6, 7, 14, 21, 42]
 
-A rought implementation of divisor function, such as sigma_0 and sigma_1.
+Ohter divisor function such as ``sigma`` is subscriptable.
 
->>> len(divisors(42)) # sigma_0
+>>> sigma[0](42)
 8
->>> sum(divisors(42)) # sigma_1
+>>> sigma[1](42)
 96
+>>> sigma(42) == sigma[1](42)
+True
 
 ``phi``, also known as Euler totient, will show number of relatively primes.
 
@@ -118,25 +120,30 @@ A rought implementation of divisor function, such as sigma_0 and sigma_1.
 Working with List of Numbers
 ----------------------------
 
-``prod`` works like builtin's ``sum``, except each numbers will be multiply.
+``product`` works like builtin's ``sum``, except each numbers will be multiply.
 
->>> prod([1, 2, 3, 4, 5])
+>>> product([1, 2, 3, 4, 5])
 120
 
-While ``summation`` doesn't takes full list, it require just the last one.
+While ``sumpow`` doesn't takes full list, it require just the last one.
 and assume this list start from 1, with 1 step.
 
->>> summation(100)
+>>> sumpow(100)
 5050
->>> summation(1234567890)
+>>> sumpow(1234567890)
 762078938126809995
 
-It's can also power to each number like this
+It's can also power each number like this
 
 >>> sum(i**2 for i in range(1, 11))
 385
->>> summation(10, 2)
+>>> sumpow(10, 2)
 385
+
+``sumexp`` will find geometric sum, ``r**0 + r**1 + r**2 + ... + r**k``.
+
+>>> sumexp(2, 10)
+2047
 
 Extended Class
 --------------
