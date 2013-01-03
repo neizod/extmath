@@ -258,7 +258,6 @@ def product(l):
     return s
 
 
-from itertools import groupby
 def group(l):
     '''group(iterable) -> set of tuple of key-value'''
 
