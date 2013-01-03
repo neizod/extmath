@@ -258,10 +258,14 @@ def product(l):
     return s
 
 
+from itertools import groupby
 def group(l):
-    '''group(iterable) -> generator'''
+    '''group(iterable) -> set of tuple of key-value'''
 
-    return ((n, l.count(n)) for n in set(l))
+    d = {}
+    for k in l:
+        d[k] = d.get(k, 0) + 1
+    return d.items()
 
 
 def factorized(n):
