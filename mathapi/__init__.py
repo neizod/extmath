@@ -42,6 +42,29 @@ Fraction.decimal = _decimal
 del _decimal
 
 
+class NumeralSystem:
+    def int(self, string):
+        l = []
+        for digit in string:
+            if digit not in self.digits:
+                raise KeyError('digit not exists in this numeral system.')
+            l.append(self.digits.index(digit))
+        return sum(v * self.base**k for k, v in enumerate(reversed(l)))
+
+    def str(self, integer):
+        l = []
+        while integer:
+            integer, remaining = divmod(integer, self.base)
+            l.append(remaining)
+        return ''.join(self.digits[n] for n in reversed(l))
+
+    def __init__(self, digits):
+        if not digits:
+            raise ValueError('numeral system could not represent with empty.')
+        self.digits = digits
+        self.base = len(digits)
+
+
 def infinitelist(value):
     '''As function decorator, with initial value.
 
