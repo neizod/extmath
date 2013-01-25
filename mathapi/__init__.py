@@ -61,6 +61,8 @@ class NumeralSystem:
     def __init__(self, digits):
         if not digits:
             raise ValueError('numeral system could not represent with empty.')
+        if len(digits) == 1:
+            raise ValueError('numeral system should not have single digit.')
         self.digits = digits
         self.base = len(digits)
 
