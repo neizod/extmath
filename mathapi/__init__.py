@@ -270,10 +270,12 @@ def sigma(n, x=1):
     return product(sumexp(p**x, k) for p, k in group(factorized(n)))
 
 
-def product(l):
-    '''product(iterable) -> value'''
+def product(l, s=1):
+    '''product(iterable[, int]) -> value
+    
+    Returns production of numbers, eager eval (no short circit when face 0).
+    This function may have initial value as second argument.'''
 
-    s = 1
     for n in l:
         s *= n
     return s
