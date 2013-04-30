@@ -273,7 +273,7 @@ def sigma(n, x=1):
 def product(l, s=1):
     '''product(iterable[, int]) -> value
     
-    Returns production of numbers, eager eval (no short circit when face 0).
+    Return production of numbers, eager eval (no short circit when face 0).
     This function may have initial value as second argument.'''
 
     for n in l:
@@ -294,7 +294,7 @@ def factorized(n):
     '''factorized(number) -> list
 
     Prime fatorization of the number, e.g. factorized(42) -> [2, 3, 7]
-    Returns empty list if 'n' is 0, or [1] if 'n' is 1 (by defination).
+    Return empty list if 'n' is 0, or [1] if 'n' is 1 (by defination).
     Also return only absolute value.'''
 
     n = abs(n)
@@ -311,6 +311,7 @@ def factorized(n):
         factor.append(n)
     return factor
 
+
 def divisors(n):
     '''divisors(number) -> list
 
@@ -321,6 +322,7 @@ def divisors(n):
     factor_set = ({p**i for i in range(k+1)} for p, k in group(factorized(n)))
     return sorted(product(c) for c in cartesian_product(*factor_set))
 
+
 def sumexp(r, k):
     '''sumexp(base, stop_power) -> int
 
@@ -329,6 +331,7 @@ def sumexp(r, k):
     if r == 1:
         return k + 1
     return (r**(k+1) - 1) // (r - 1)
+
 
 def sumpow(n, p=1):
     '''sumpow(stop_number[, power]) -> int
@@ -374,3 +377,18 @@ def sumpow(n, p=1):
     else:
         raise NotImplementedError
 
+
+def sqrt(n):
+    '''sqrt(non_negative_integer) -> integer
+
+    Return integer square root of an input number '''
+
+    if n == 0: 
+        return 0 
+    x = 2 ** sum(divmod(n.bit_length(), 2))
+    while True: 
+        y = x + n // x 
+        y //= 2 
+        if y >= x: 
+            return x 
+        x = y
