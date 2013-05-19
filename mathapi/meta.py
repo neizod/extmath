@@ -96,5 +96,6 @@ def indexargument(func):
             def partial(*args):
                 args += (x,)
                 return func(*args)
+            partial.__name__ = func.__name__ + '[{}]'.format(x)
             return partial
     return IndexArgument()
