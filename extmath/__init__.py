@@ -1,7 +1,7 @@
 from fractions import Fraction, Decimal
-from mathapi.meta import infinitelist, duality, indexargument
-from mathapi.basic import sqrt, product, group, sumexp, sumpow
-from mathapi.number_theory import prime, phi, pi, sigma, factorized, divisors
+from extmath.meta import infinitelist, duality, indexargument
+from extmath.basic import sqrt, product, group, sumexp, sumpow
+from extmath.number_theory import prime, phi, pi, sigma, factorized, divisors
 
 
 def _decimal(self, sep='()'):

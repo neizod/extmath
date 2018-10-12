@@ -1,6 +1,6 @@
 from itertools import product as cartesian_product
-from mathapi.meta import infinitelist, duality, indexargument
-from mathapi.basic import product, group, sumexp
+from extmath.meta import infinitelist, duality, indexargument
+from extmath.basic import product, group, sumexp
 
 
 @infinitelist([2, 3])

@@ -1,12 +1,12 @@
 ===================
-``mathapi`` Doctest
+``extmath`` Doctest
 ===================
 
-This doctest also help user learn ``mathapi``'s features.
+This doctest also help user learn ``extmath``'s features.
 
 To experiment with this module, import it first.
 
->>> from mathapi import *
+>>> from extmath import *
 
 The ``import *`` is just for convenience, since every items will be tested.
 

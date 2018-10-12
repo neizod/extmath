@@ -1,5 +1,5 @@
-Math API
-========
+Extended Math
+=============
 
 Digging into <http://projecteuler.net>, I discover many interesting
 mathematical technique, which not yet include in main. So I write it out.
