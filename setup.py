@@ -5,10 +5,11 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='extmath',
-    version='0.9',
+    version='0.9.1',
     author='Nattawut Phetmak',
-    # author_email='',
+    author_email='neizod@gmail.com',
     description='Collections of useful tools in mathematics.',
+	license='MIT',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/neizod/extmath',
