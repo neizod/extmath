@@ -30,10 +30,8 @@ Avalable Feature
 
 See document in file `test.rst`
 
+
 Installation
 ------------
 
-Download source and, as root
-
-    python setup.py install
-
+    pip install extmath
