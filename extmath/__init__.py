@@ -1,7 +1,7 @@
 from fractions import Fraction, Decimal
 from extmath.meta import infinitelist, duality, indexargument
 from extmath.basic import sqrt, product, group, sumexp, sumpow
-from extmath.number_theory import prime, phi, pi, sigma, factorized, divisors
+from extmath.number_theory import primes, phi, pi, sigma, factorized, divisors
 
 
 def _decimal(self, sep='()'):
@@ -70,7 +70,7 @@ class NumeralSystem:
 
 
 @infinitelist([1, 1])
-def fibonacci(base):
+def fibonaccis(base):
     '''Fibonacci sequence'''
 
     def __call__(self, n, m={0: 1, 1: 1}):

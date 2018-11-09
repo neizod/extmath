@@ -4,12 +4,12 @@ from extmath.basic import product, group, sumexp
 
 
 @infinitelist([2, 3])
-def prime(base):
+def primes(base):
     '''Prime number sequence'''
 
     def index(self, n):
         if n not in self:
-            raise ValueError('{} is not prime'.format(n))
+            raise ValueError('{} is not prime number'.format(n))
         while n > self[-1]:
             self[len(self)]
         return super(base, self).index(n)
@@ -67,7 +67,7 @@ def pi(n):
     as function: pi(number) -> number
         Prime-counting, number of all 0 < p <= n where p is a prime number'''
 
-    return sum(1 for p in prime.under(n+1))
+    return sum(1 for p in primes.under(n+1))
 
 
 @indexargument
@@ -86,7 +86,7 @@ def trial_div(n):
     if n == 1:
         return [1]
     factor = []
-    for i in prime:
+    for i in primes:
         if i**2 > n:
             break
         while not n % i:

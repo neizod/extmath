@@ -29,35 +29,35 @@ Single Value
 List of Vaules
 --------------
 
->>> fibonacci
+>>> fibonaccis
 [1, 1, ...]
->>> prime
+>>> primes
 [2, 3, ...]
 
 The list will not growth until element beyond the last one is needed.
 
->>> fibonacci[10]
+>>> fibonaccis[10]
 89
->>> fibonacci
+>>> fibonaccis
 [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...]
 
 Prime list works sighly difference, it may produce primes more than expected.
 
->>> prime[5]
+>>> primes[5]
 13
->>> prime
+>>> primes
 [2, 3, 5, 7, 11, 13, 17, 19, 23, ...]
 
 Slicing list to get exact number of elements are possible, however.
 
->>> prime[:12]
+>>> primes[:12]
 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
 
-Take some values with ``prime.under``, this is same to ``itertools.takewhile``.
+Take some values with ``primes.under``, this is same to ``itertools.takewhile``.
 
->>> list(prime.under(53))
+>>> list(primes.under(53))
 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
->>> list(itertools.takewhile(lambda x: x < 53, prime))
+>>> list(itertools.takewhile(lambda x: x < 53, primes))
 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
 
 Function
@@ -81,14 +81,14 @@ Prime-Counting Function ``pi`` (share name with the constance).
 
 This is also equalence to
 
->>> prime[100]
+>>> primes[100]
 547
 
 To test whether n is prime, use ``in`` keyword.
 
->>> 43 in prime
+>>> 43 in primes
 True
->>> 1007 in prime
+>>> 1007 in primes
 False
 
 Factorization with ``factorized``.
